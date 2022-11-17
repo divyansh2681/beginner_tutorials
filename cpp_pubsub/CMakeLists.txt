@@ -18,17 +18,20 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
+# find_package(std_msgs REQUIRED)
+find_package(tutorial_interfaces REQUIRED) 
 
 add_executable(talker src/publisher.cpp)
-ament_target_dependencies(talker rclcpp std_msgs)
+# ament_target_dependencies(talker rclcpp std_msgs)
+ament_target_dependencies(talker rclcpp tutorial_interfaces)
 
-install(TARGETS
-  talker
-  DESTINATION lib/${PROJECT_NAME})
+# install(TARGETS
+#   talker
+#   DESTINATION lib/${PROJECT_NAME})
 
 add_executable(listener src/subscriber.cpp)
-ament_target_dependencies(listener rclcpp std_msgs)
+# ament_target_dependencies(listener rclcpp std_msgs)
+ament_target_dependencies(listener rclcpp tutorial_interfaces) 
 
 install(TARGETS
   talker
