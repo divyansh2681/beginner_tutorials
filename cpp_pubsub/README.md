@@ -1,6 +1,6 @@
-ROS2 - Beginner Tutorials - Publisher & Subscriber
+ROS2 - Beginner Tutorials - Publisher, Subscriber & Services
 
-This repository contains the publisher-subscriber tutorial from ROS2 Beginner: Client libraries.
+This repository contains the publisher-subscriber tutorial from ROS2 Beginner: Client libraries and Services also.
 
 Dependencies:
 <ul>
@@ -24,4 +24,14 @@ ros2 run cpp_pubsub talker
 Running subscriber
 ```
 ros2 run cpp_pubsub listener 
+```
+Service, Logging and Launch Files
+
+Using the launch file with an argument
+```
+  ros2 launch cpp_pubsub launchFile.yaml count:=50
+```
+Calling the service
+```
+  ros2 service call /MinimalPublisher/Count
 ```
