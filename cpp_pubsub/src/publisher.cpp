@@ -38,13 +38,14 @@ class MinimalPublisher : public rclcpp::Node {
   : Node("minimal_publisher"), count_(0) {
     auto descript = rcl_interfaces::msg::ParameterDescriptor{};
     descript.description =
-        "\nThis parameter modifies the queue size for the message published\
-         on the topic";
+        "\nThis parameter modifies the queue size";
     this->declare_parameter("queue", queues_, descript);
     queues_ = this->get_parameter("queue").get_parameter_value().get<int>();
-    RCLCPP_INFO_STREAM(this->get_logger(), "Setting queue size to: " << queues_);
+    RCLCPP_INFO_STREAM(this->get_logger(), \
+    "Setting queue size to: " << queues_);
 
-    publisher_ = this->create_publisher<std_msgs::msg::String>("topic", queues_);
+    publisher_ = \
+    this->create_publisher<std_msgs::msg::String>("topic", queues_);
     timer_ = this->create_wall_timer(
       5000ms, std::bind(&MinimalPublisher::timer_callback, this));
 
@@ -53,7 +54,6 @@ class MinimalPublisher : public rclcpp::Node {
   }
 
  private:
-
   /**
    * @brief callback function for the publisher
    * 
