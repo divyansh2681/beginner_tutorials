@@ -1,15 +1,26 @@
 launch:
 
 - arg:
-    name: "count"
-    default: "100"
+    name: "input"
+    default: "FATAL"
 
 - node:
     pkg: "cpp_pubsub"
     exec: "talker"
     name: "publisher"
     output: "screen"
-    param:
-        - name: "count"
-          value: "$(var count)"
 
+- node:
+    pkg: "cpp_pubsub"
+    exec: "listener"
+    name: "subscriber"
+    output: "screen"
+
+- node:
+    pkg: "cpp_pubsub"
+    exec: "clienttt"
+    name: "client"
+    output: "screen"
+    param:
+        - name: "input"
+          value: "$(var input)"
