@@ -19,19 +19,19 @@ source "your workspace"/install/setup.bash
 
 Running publisher
 ```
-ros2 run cpp_pubsub talker
+ros2 run cpp_pubsub talker queue:=40
 ```
 Running subscriber
 ```
 ros2 run cpp_pubsub listener 
 ```
-Service, Logging and Launch Files
-
+Calling the client
+```
+  ros2 run cpp_pubsub clienttt FATAL
+```
 Using the launch file with an argument
 ```
-  ros2 launch cpp_pubsub launchFile.yaml count:=50
+  ros2 launch cpp_pubsub launchFile.yaml queue:=40
 ```
-Calling the service
-```
-  ros2 service call /MinimalPublisher/Count
-```
+
+Note: When running the client, FATAL is just an example. You can use any logger level (INFO, ERROR, DEBUG, WARN).
