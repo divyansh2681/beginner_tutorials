@@ -23,12 +23,28 @@
 using namespace std::chrono_literals;
 using Stringss = cpp_pubsub::srv::Stringss;
 using namespace std::placeholders;
+/**
+ * @brief class to represent publisher and subscriber
+ * 
+ */
 
 class MinimalPublisher : public rclcpp::Node {
  public:
+ /**
+  * @brief Construct a new Minimal Publisher object
+  * 
+  */
   MinimalPublisher()
   : Node("minimal_publisher"), count_(0) {
-    publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
+    auto descript = rcl_interfaces::msg::ParameterDescriptor{};
+    descript.description =
+        "\nThis parameter modifies the queue size for the message published\
+         on the topic";
+    this->declare_parameter("queue", queues_, descript);
+    queues_ = this->get_parameter("queue").get_parameter_value().get<int>();
+    RCLCPP_INFO_STREAM(this->get_logger(), "Setting queue size to: " << queues_);
+
+    publisher_ = this->create_publisher<std_msgs::msg::String>("topic", queues_);
     timer_ = this->create_wall_timer(
       5000ms, std::bind(&MinimalPublisher::timer_callback, this));
 
@@ -37,6 +53,11 @@ class MinimalPublisher : public rclcpp::Node {
   }
 
  private:
+
+  /**
+   * @brief callback function for the publisher
+   * 
+   */
   void timer_callback() {
     auto message = std_msgs::msg::String();
     message.data = "Hello, this is the publisher for ENPM808X by Divyansh " \
@@ -44,7 +65,13 @@ class MinimalPublisher : public rclcpp::Node {
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
     publisher_->publish(message);
   }
-
+  /**
+   * @brief function to respond back to the client request and 
+      output the logger levels depending on the use input
+   * 
+   * @param request 
+   * @param response 
+   */
   void RespondToClient(const std::shared_ptr<Stringss::Request> request,
           std::shared_ptr<Stringss::Response> response) {
     response->output = request->input;
@@ -71,6 +98,7 @@ class MinimalPublisher : public rclcpp::Node {
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
   rclcpp::Service<Stringss>::SharedPtr service_;
+  int queues_;
   size_t count_;
 };
 
