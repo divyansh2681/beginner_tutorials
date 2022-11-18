@@ -29,7 +29,6 @@ int main(int argc, char **argv) {
       RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "usage: input a string");
       return 1;
   }
-
   std::shared_ptr<rclcpp::Node> node = \
   rclcpp::Node::make_shared("client_for_updating_string");
   rclcpp::Client<cpp_pubsub::srv::Stringss>::SharedPtr client =
