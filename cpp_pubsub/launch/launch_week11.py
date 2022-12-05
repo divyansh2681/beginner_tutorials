@@ -19,7 +19,7 @@ def generate_launch_description():
     if rosbag_record=='record:=True':
         actions_list.append(
             ExecuteProcess(
-                cmd=["ros2", "bag", "record", "-o", "beginner_tutorials_bag", "-a"]
+                cmd=["ros2", "bag", "record", "-o", "cpp_pubsub_bag", "-a"]
             )
         )
     return LaunchDescription(actions_list)
