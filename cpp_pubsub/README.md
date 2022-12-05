@@ -1,4 +1,4 @@
-ROS2 - Beginner Tutorials - Publisher, Subscriber, Services, tf2, unit testing
+ROS2 - Beginner Tutorials - Publisher, Subscriber, Services, tf2, unit testing and bag files
 
 This repository contains the publisher-subscriber tutorial from ROS2 Beginner: Client libraries and Services also.
 
