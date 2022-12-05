@@ -58,7 +58,8 @@ class MinimalPublisher : public rclcpp::Node {
     std::bind(&MinimalPublisher::RespondToClient, this, _1, _2));
 
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
-    tf_timer_ = this->create_wall_timer(200ms, std::bind(&MinimalPublisher::broadcast_timer_callback, this));
+    tf_timer_ = this->create_wall_timer(200ms, \
+    std::bind(&MinimalPublisher::broadcast_timer_callback, this));
   }
 
  private:
@@ -130,9 +131,8 @@ class MinimalPublisher : public rclcpp::Node {
   rclcpp::Service<Stringss>::SharedPtr service_;
   int queues_;
   size_t count_;
-  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_; 
+  std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
   rclcpp::TimerBase::SharedPtr tf_timer_;
-
 };
 
 int main(int argc, char * argv[]) {
