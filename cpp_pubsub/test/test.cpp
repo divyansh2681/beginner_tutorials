@@ -30,17 +30,14 @@
 #endif
 
 using namespace std::chrono_literals;
-
-class CLASSNAME (test_services_client, RMW_IMPLEMENTATION) : public ::testing::Test
-{
+class CLASSNAME(test_services_client, RMW_IMPLEMENTATION):/
+public ::testing::Test {
 public:
-  static void SetUpTestCase()
-  {
+  static void SetUpTestCase() {
     rclcpp::init(0, nullptr);
   }
 
-  static void TearDownTestCase()
-  {
+  static void TearDownTestCase() {
     rclcpp::shutdown();
   }
 };
@@ -56,10 +53,10 @@ TEST_F(CLASSNAME(test_services_client, RMW_IMPLEMENTATION), test_add_noreqid) {
   if (!client->wait_for_service(500s)) {
     ASSERT_TRUE(false) << "service not available after waiting";
   }
-  std::cout<<"*******"<<std::endl;
+  std::cout << "*******" << std::endl;
   auto result = client->async_send_request(request);
 
-  auto ret = rclcpp::spin_until_future_complete(node, result, 5s);  // Wait for the result.
+  auto ret = rclcpp::spin_until_future_complete(node, result, 5s);
   ASSERT_EQ(ret, rclcpp::FutureReturnCode::SUCCESS);
 
   EXPECT_EQ(request->input.c_str(), result.get()->output.c_str());
